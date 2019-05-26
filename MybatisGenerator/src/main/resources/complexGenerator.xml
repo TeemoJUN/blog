@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+    <!-- classPathEntry:数据库的JDBC驱动的jar包地址 -->
+    <context id="MySql" targetRuntime="MyBatis3">
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!--<property name="xmlMergeable" value="true"/>-->
+        <!--<property name="javaMergeable" value="true"/>-->
+        <!-- 插件配置 -->
+        <!-- 自动识别数据库关键字，默认false -->
+        <!--<property name="autoDelimitKeywords" value="true"/>-->
+        <!--可以使用``包括字段名，避免字段名与sql保留字冲突报错 -->
+        <!--<property name="beginningDelimiter" value="`"/>-->
+        <!--<property name="endingDelimiter" value="`"/>-->
+        <!--覆盖生成XML文件-->
+
+        <plugin type="MyBatisPlugin"/>
+
+        <!-- 序列化插件 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!-- 分页插件 -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <!--&lt;!&ndash; ToString插件 &ndash;&gt;-->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+        <!-- ToString插件 -->
+        <!--<plugin type="org.mybatis.generator.plugin.SelectOneByExamplePlugin"/>-->
+        <!--<plugin type="org.mybatis.generator.plugin.BatchInsertPlugin"/>-->
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释，默认false，true：去除；false：不去除 -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 指定在生成的注释是否将包括时间戳，默认是false -->
+            <property name="suppressDate" value="true"/>
+            <property name="replaceNamespace" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}" password="${jdbc.password}">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <!--  <javaTypeResolver>
+                <property name="forceBigDecimals" value="false" />
+            </javaTypeResolver> -->
+        <!--要生成的 domain 模块位置-->
+        <javaModelGenerator targetPackage="${model.package}" targetProject="${model.java.project}">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <!--<property name="comments" value="false"/>-->
+        </javaModelGenerator>
+
+        <!--要生成的 Mapper.xml 文件位置-->
+        <sqlMapGenerator targetPackage="${mapper}" targetProject="${mapper.resources}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--要生成的 Mapper 接口类-->
+        <javaClientGenerator targetPackage="${dao.package}" targetProject="${model.java.project}" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
+        <table schema="general" tableName="${table.name}">
+            <!--domain字段的命名规则，false:默认为驼峰命名 true:按数据库真实命名  -->
+            <property name="useActualColumnNames" value="false"/>
+            <!-- 忽略列，不生成bean 字段 -->
+            <!--     <ignoreColumn column="FRED" />   -->
+            <!-- 指定列的java数据类型 -->
+            <!--     <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />   -->
+        </table>
+    </context>
+
+</generatorConfiguration>

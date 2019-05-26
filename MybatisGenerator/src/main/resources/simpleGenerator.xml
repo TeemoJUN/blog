@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--mybatis生成工具的帮助文档可以看：-->
+    <!--英文：http://www.mybatis.org/generator/usage/mysql.html-->
+    <!--中文：http://www.mybatis.tk/-->
+    <!--中文：http://mbg.cndocs.tk/-->
+    <properties resource="generator.properties"/>
+    <context id="mysql" targetRuntime="MyBatis3">
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!--设置编码格式-->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="replaceNamespace" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}" password="${jdbc.password}"/>
+
+
+        <!--要生成的 domain 模块位置-->
+        <javaModelGenerator targetPackage="${model.package}" targetProject="${model.java.project}">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <!--<property name="comments" value="false"/>-->
+        </javaModelGenerator>
+
+        <!--要生成的 Mapper.xml 文件位置-->
+        <sqlMapGenerator targetPackage="${mapper}" targetProject="${mapper.resources}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--要生成的 Mapper 接口类-->
+        <javaClientGenerator targetPackage="${dao.package}" targetProject="${model.java.project}" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="${table.name}" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">
+            <!--<ignoreColumn column="utime"/>-->
+            <!--<columnOverride column ="password" property ="startDate"/>-->
+            <!--<ignoreColumn column="update_time"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
