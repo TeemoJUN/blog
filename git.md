@@ -3,4 +3,4 @@
 
 
 `git reset -HARD commitId` 强势版本回退。会丢失当前的版本提交信息
-`git revert commitId` 会将当时的内容回归，并作为新的commit fa
+`git revert commitId` 会将当时的内容回归，并作为新的commit
